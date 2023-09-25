@@ -23,6 +23,5 @@
     </source>
     <php>
         <env name="APP_ENV" value="testing"/>
-        <env name="DRIVER_BINARY" value="/home/remote-appdev01/.chromedriver/chromedriver-linux"/>
     </php>
 </phpunit>

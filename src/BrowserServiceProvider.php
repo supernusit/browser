@@ -4,10 +4,9 @@ namespace Asciito\Browser;
 
 use Asciito\LaravelPackage\Package\Package;
 use Asciito\LaravelPackage\Package\PackageServiceProvider;
-use Facebook\WebDriver\Chrome\ChromeDriver;
-use Facebook\WebDriver\Chrome\ChromeDriverService;
 use Facebook\WebDriver\Chrome\ChromeOptions;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
+use Facebook\WebDriver\Remote\RemoteWebDriver;
 
 class BrowserServiceProvider extends PackageServiceProvider
 {
@@ -24,13 +23,9 @@ class BrowserServiceProvider extends PackageServiceProvider
 
             $capabilities = DesiredCapabilities::chrome()->setCapability(ChromeOptions::CAPABILITY, $options);
 
-            if ($binary = config('browser.driver.binary')) {
-                putenv('WEBDRIVER_CHROME_DRIVER='.$binary);
-            }
+            $url = config('browser.driver.url').':'.config('browser.driver.port');
 
-            $service = ChromeDriverService::createDefaultService();
-
-            $driver = ChromeDriver::start($capabilities, $service);
+            $driver = RemoteWebDriver::create($url, $capabilities);
 
             return new Browser($driver);
         });

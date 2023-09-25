@@ -39,12 +39,10 @@ return [
     | The defaults are:
     | - url  = 'localhost'
     | - port = 9515
-    | - assume the 'chromedriver' binary in on the $PATH
     |
     */
     'driver' => [
-        'url' => null,
-        'port' => null,
-        'binary' => env('DRIVER_BINARY'),
+        'url' => env('BROWSER_DRIVER_URL', 'http://localhost'),
+        'port' => env('BROWSER_DRIVER_PORT', 9515),
     ],
 ];
