@@ -7,11 +7,21 @@ use Exception;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\Remote\RemoteWebElement;
 use Facebook\WebDriver\WebDriverBy;
+use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Macroable;
+use InvalidArgumentException;
 
 class ElementResolver
 {
     use Macroable;
+
+    protected array $buttonFinders = [
+        'findById',
+        'findButtonBySelector',
+        'findButtonByName',
+        'findButtonByValue',
+        'findButtonByText',
+    ];
 
     /**
      * @param  RemoteWebDriver  $driver The remote web driver instance.
@@ -137,6 +147,79 @@ class ElementResolver
             $field,
         ]);
     }
+
+    /**
+     * Resolve the element for a given button.
+     *
+     * @throws InvalidArgumentException
+     */
+    public function resolveForButtonPress(string $button): ?RemoteWebElement
+    {
+        foreach ($this->buttonFinders as $method) {
+            if (! is_null($element = $this->{$method}($button))) {
+                return $element;
+            }
+        }
+
+        throw new InvalidArgumentException(
+            "Unable to locate button [$button]."
+        );
+    }
+
+    /**
+     * Resolve the element for a given button by selector.
+     */
+    protected function findButtonBySelector(string $selector): ?RemoteWebElement
+    {
+        if (! is_null($element = $this->find($selector))) {
+            return $element;
+        }
+
+        return null;
+    }
+
+    /**
+     * Resolve the element for a given button by name.
+     */
+    protected function findButtonByName(string $name): ?RemoteWebElement
+    {
+        if (! is_null($element = $this->find("input[type=submit][name='$name']")) ||
+            ! is_null($element = $this->find("input[type=button][value='$name']")) ||
+            ! is_null($element = $this->find("button[name='$name']"))) {
+            return $element;
+        }
+
+        return null;
+    }
+
+    /**
+     * Resolve the element for a given button by value.
+     */
+    protected function findButtonByValue(string $value): ?RemoteWebElement
+    {
+        foreach ($this->all('input[type=submit]') as $element) {
+            if ($element->getAttribute('value') === $value) {
+                return $element;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Resolve the element for a given button by text.
+     */
+    protected function findButtonByText(string $text): ?RemoteWebElement
+    {
+        foreach ($this->all('button') as $element) {
+            if (Str::contains($element->getText(), $text)) {
+                return $element;
+            }
+        }
+
+        return null;
+    }
+
 
     /**
      * Format the given selector with the current prefix

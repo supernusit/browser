@@ -45,4 +45,11 @@ trait InteractsWithElements
 
         return $this;
     }
+
+    public function press(string $button): static
+    {
+        $this->resolver->resolveForButtonPress($button);
+
+        return $this;
+    }
 }
