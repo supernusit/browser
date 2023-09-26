@@ -99,6 +99,20 @@ class Browser
     }
 
     /**
+     * Run the given JS
+     */
+    public function runScript(string $script, bool $async = false): mixed
+    {
+        $this->ensurejQueryIsAvailable();
+
+        if ($async) {
+            return $this->driver->executeAsyncScript($script);
+        }
+
+        return $this->driver->executeScript($script);
+    }
+
+    /**
      * Pause for the given amount of milliseconds if the given condition is true.
      */
     public function pauseIf(bool $boolean, int $milliseconds): static
