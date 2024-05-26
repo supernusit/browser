@@ -1,10 +1,10 @@
 <?php
 
-namespace Asciito\Browser;
+namespace Browser;
 
-use Asciito\Browser\Concerns\InteractsWithElements;
-use Asciito\Browser\Concerns\MakesAssertions;
-use Asciito\Browser\Concerns\WaitsForElements;
+use Browser\Concerns\InteractsWithElements;
+use Browser\Concerns\MakesAssertions;
+use Browser\Concerns\WaitsForElements;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Illuminate\Support\Traits\Macroable;
 
