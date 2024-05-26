@@ -1,10 +1,10 @@
 {
-    "name": "asciito/browser",
+    "name": "supernusit/browser",
     "description": "",
     "authors": [
         {
-            "name": "Ayax Cordova",
-            "email": "hcordova@supernus.com"
+            "name": "Supernus Pharmaceuticals, Inc.",
+            "email": "appdevteam@supernus.com"
         }
     ],
     "keywords": [
@@ -15,7 +15,7 @@
     ],
     "require": {
         "php-webdriver/webdriver": "^1.15.0",
-        "asciito/laravel-package": "^0.2.0"
+        "supernusit/laravel-package": "^0.2.0"
     },
     "require-dev": {
         "orchestra/testbench": "^8.11",
