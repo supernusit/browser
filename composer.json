@@ -31,7 +31,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Asciito\\Browser\\Tests\\": "tests/"
+            "Browser\\Tests\\": "tests/"
         }
     },
     "config": {
@@ -42,7 +42,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "\\Asciito\\Browser\\BrowserServiceProvider"
+                "\\Browser\\BrowserServiceProvider"
             ]
         }
     },
